@@ -1,5 +1,7 @@
 package com.rest_api.fs14backend.category;
 
+import com.rest_api.fs14backend.book.Book;
+import com.rest_api.fs14backend.book.BookRepository;
 import com.rest_api.fs14backend.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,6 +14,10 @@ import java.util.UUID;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
+
 
 
     /**
@@ -36,5 +42,18 @@ public class CategoryService {
     //CREATE A CATEGORY
     public Category addCategory(Category category){
         return categoryRepository.save(category);
+    }
+
+    //ADDS A BOOK TO A CATEGORY
+    public void addBookToCategory(UUID categoryId, UUID bookId) {
+        System.out.println("addBookToCategoryIs called");
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFoundException("Category not found with ID " + categoryId));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new NotFoundException("Book not found with ID " + bookId));
+        category.addBook(book);
+        categoryRepository.save(category);
+        book.setCategory(category);
+        bookRepository.save(book);
     }
 }

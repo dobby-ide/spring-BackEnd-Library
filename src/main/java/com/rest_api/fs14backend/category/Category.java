@@ -1,7 +1,10 @@
 package com.rest_api.fs14backend.category;
 
+import com.rest_api.fs14backend.book.Book;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name="categories")
@@ -14,6 +17,8 @@ public class Category {
     @Column(nullable = false, columnDefinition = "varchar(50)", name = "category_name")
     private String categoryName;
 
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
     public Category() {
     }
 
@@ -35,5 +40,17 @@ public class Category {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public void addBook(Book book){
+        this.books.add(book);
     }
 }

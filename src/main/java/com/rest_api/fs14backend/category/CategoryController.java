@@ -1,6 +1,9 @@
 package com.rest_api.fs14backend.category;
 
+import com.rest_api.fs14backend.book.Book;
+import com.rest_api.fs14backend.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.UUID;
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BookService bookService;
 
     @GetMapping
     public List<Category> findAll(){
@@ -32,4 +37,15 @@ public class CategoryController {
     public void deleteOne(@PathVariable UUID id){
         categoryService.deleteById(id);
     }
+
+    //PERFORMS AN OPERATION TO MATCH A BOOK WITH A CATEGORY (BY IDs)
+
+    @PostMapping("/{categoryId}/books/{bookId}")
+    public ResponseEntity<Category> addBookToCategory(@PathVariable UUID categoryId, @PathVariable UUID bookId) {
+        System.out.println("addBookToCategory in controller is called");
+        Category category = categoryService.findById(categoryId);
+        categoryService.addBookToCategory(categoryId,bookId);
+        return ResponseEntity.ok().body(category);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.rest_api.fs14backend.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rest_api.fs14backend.category.Category;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -15,6 +17,11 @@ public class Book {
     private String ISBN;
     @Column(nullable = false,columnDefinition = "varchar(100)")
     private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    @JsonIgnore
+    private Category category;
 
     public Book() {
     }
@@ -46,5 +53,13 @@ public class Book {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
