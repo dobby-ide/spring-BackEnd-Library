@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.book;
 
+import com.rest_api.fs14backend.category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,25 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    public List<Book> findAll(){
-        return bookService.findAll();
+    public List<Book> getAllBooks() {
+        List<Book> books = bookService.findAll();
+        for (Book book : books) {
+            Category category = book.getCategory();
+            if (category != null) {
+                String categoryName = category.getCategoryName();
+                book.setCategoryName(categoryName);
+            }
+        }
+        return books;
     }
     @GetMapping("/{id}")
     public Book findById(@PathVariable UUID id){
         Book book = bookService.findById(id);
+        Category category = book.getCategory();
+        if(category!=null){
+            String categoryName = category.getCategoryName();
+            book.setCategoryName(categoryName);
+        }
         return book;
     }
 

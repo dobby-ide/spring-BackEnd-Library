@@ -1,6 +1,7 @@
 package com.rest_api.fs14backend.book;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rest_api.fs14backend.category.Category;
 import jakarta.persistence.*;
 
@@ -21,14 +22,26 @@ public class Book {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @JsonIgnore
+    @JsonProperty("categoryName")
     private Category category;
+    @Column
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
     public Book() {
     }
 
-    public Book(String ISBN, String title) {
+    public Book(String ISBN, String title, Category category) {
         this.ISBN = ISBN;
         this.title = title;
+        this.category = category;
     }
 
     public String getISBN() {
