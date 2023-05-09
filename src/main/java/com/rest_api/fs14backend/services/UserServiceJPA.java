@@ -9,6 +9,7 @@ import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.model.UserDTO;
 import com.rest_api.fs14backend.repositories.BookRepository;
 import com.rest_api.fs14backend.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class UserServiceJPA implements UserService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-
+    @Transactional
     public void borrowBook(UUID userId, UUID bookId) throws BookNotFoundException {
         Book book = bookRepository.findById(bookId).orElseThrow();
         User user = userRepository.findById(userId).orElseThrow();
@@ -41,7 +42,7 @@ public class UserServiceJPA implements UserService {
         book.setQuantity(book.getQuantity()-1);
         book.setBorrower(user);
         bookRepository.save(book);
-
+        user.addBook(book);
         user.getBooks().add(book);
         userRepository.save(user);
 

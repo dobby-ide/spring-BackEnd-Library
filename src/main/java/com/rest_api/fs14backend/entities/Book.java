@@ -1,8 +1,6 @@
 package com.rest_api.fs14backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -61,6 +59,7 @@ public class Book {
     @JoinTable(name = "book_user",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonManagedReference
     private Set<User> users = new HashSet<>();
 
 
@@ -78,12 +77,13 @@ public class Book {
 
     public void setBorrower(User user) {
         if (user != null) {
-            if(this.users == null){
+            if (this.users == null) {
                 this.users = new HashSet<>();
+            }
             this.users.add(user);
             user.getBooks().add(this);
             this.quantity -= 1;
-        }}
+        }
     }
 }
 

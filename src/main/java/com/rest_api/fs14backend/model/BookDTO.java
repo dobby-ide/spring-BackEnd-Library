@@ -30,18 +30,9 @@ public class BookDTO {
     private String description;
     private Integer quantity;
     private LocalDate publishedDate;
-    @JoinColumn(name="category_id", referencedColumnName = "id")
     private Category category;
-    @JsonIgnoreProperties("books")
     private Set<Author> authors;
-    @JsonIgnoreProperties("books")
     private Set<User> users;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "borrower_id")
-    @JsonIgnoreProperties(value = {"books"})
     private UserDTO borrower;
 
-    public void setBorrower(UserDTO borrower) {
-        this.borrower = borrower;
-    }
 }

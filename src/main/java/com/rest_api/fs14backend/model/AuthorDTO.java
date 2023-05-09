@@ -15,6 +15,5 @@ public class AuthorDTO {
     private UUID id;
     private String authorName;
     private LocalDate dateOfBirth;
-    @JsonIgnoreProperties("authors")
     private Set<Book> books;
 }

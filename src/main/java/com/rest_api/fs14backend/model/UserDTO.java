@@ -17,9 +17,5 @@ public class UserDTO {
     private String name;
     private String email;
     private String password;
-    @JsonIgnoreProperties("users")
     private Set<Book> books;
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +37,7 @@ public class User {
 
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("users")
+    @JsonBackReference
     private Set<Book> books = new HashSet<>();
 
     public void addBook(Book book){

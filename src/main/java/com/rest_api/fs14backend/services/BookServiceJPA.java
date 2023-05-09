@@ -8,6 +8,7 @@ import com.rest_api.fs14backend.mappers.UserMapper;
 import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.repositories.BookRepository;
 import com.rest_api.fs14backend.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
