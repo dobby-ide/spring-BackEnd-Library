@@ -1,9 +1,13 @@
 package com.rest_api.fs14backend.services;
 
 import com.rest_api.fs14backend.entities.Book;
+import com.rest_api.fs14backend.entities.User;
+import com.rest_api.fs14backend.exceptions.BookNotFoundException;
 import com.rest_api.fs14backend.mappers.BookMapper;
+import com.rest_api.fs14backend.mappers.UserMapper;
 import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.repositories.BookRepository;
+import com.rest_api.fs14backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,11 @@ public class BookServiceJPA implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+
 
     @Override
     public List<BookDTO> listBooksWithCategory() {

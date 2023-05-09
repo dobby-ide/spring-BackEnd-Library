@@ -21,6 +21,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/{userId}/borrow-book/{bookId}")
+    public ResponseEntity borrowBook( @PathVariable("userId") UUID userId,@PathVariable("bookId") UUID bookId) {
+        try {
+
+            userService.borrowBook(userId, bookId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @GetMapping
     public List<UserDTO> listUsers(){
         return userService.listUsers();

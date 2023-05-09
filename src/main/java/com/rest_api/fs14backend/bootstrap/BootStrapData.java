@@ -67,6 +67,7 @@ public class BootStrapData implements CommandLineRunner {
 
     private void loadBookData() {
 
+
             Category cat1 = Category.builder()
                     .categoryName("science")
                     .build();
@@ -128,6 +129,15 @@ public class BootStrapData implements CommandLineRunner {
 
         book1.addAuthor(author1);
         book2.addAuthor(author2);
+
+            User user3 = User.builder()
+                    .name("Fabietto Marainnologo")
+                    .email("fabietto_marterilogoa@email.com")
+                    .password("11226634")
+                    .build();
+            user3.addBook(book1);
+            userRepository.save(user3);
+
 
         bookRepository.saveAll(Arrays.asList(book1,book2));
 

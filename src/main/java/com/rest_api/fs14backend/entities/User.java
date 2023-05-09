@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,7 +34,18 @@ public class User {
     private String email;
     private String password;
 
-    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("authors")
-    private Set<Book> books;
+
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("users")
+    private Set<Book> books = new HashSet<>();
+
+    public void addBook(Book book){
+        if(book!=null) {
+            if(books == null){
+                books = new HashSet<>();
+                books.add(book);
+            }
+
+        };
+    }
 }

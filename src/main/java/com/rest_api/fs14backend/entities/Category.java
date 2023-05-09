@@ -30,13 +30,13 @@ public class Category {
 
     @Column(name = "category_name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String categoryName;
-    @OneToMany(mappedBy = "category",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category",  fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Book> books = new ArrayList<>();
+    private List<Book> booksInCategory = new ArrayList<>();
 
     public Category(String categoryName){
         this.categoryName = categoryName;
-        this.books = new ArrayList<>();
+        this.booksInCategory = new ArrayList<>();
     }
 
 }

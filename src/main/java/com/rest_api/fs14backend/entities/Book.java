@@ -74,6 +74,13 @@ public class Book {
         author.getBooks().add(this);
     }
 
+    public void setBorrower(User user) {
+        if (user != null) {
+            this.users.add(user);
+            user.getBooks().add(this);
+            this.quantity -= 1;
+        }
+    }
 }
 
 

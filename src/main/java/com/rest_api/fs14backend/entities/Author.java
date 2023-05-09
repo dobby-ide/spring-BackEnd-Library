@@ -34,7 +34,7 @@ public class Author {
     private String authorName;
     private LocalDate dateOfBirth;
 
-    @ManyToMany(mappedBy = "authors",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("authors")
     private Set<Book> books;
 

@@ -1,7 +1,13 @@
 package com.rest_api.fs14backend.services;
 
+import com.rest_api.fs14backend.entities.Book;
+import com.rest_api.fs14backend.entities.User;
+import com.rest_api.fs14backend.exceptions.BookNotFoundException;
+import com.rest_api.fs14backend.mappers.BookMapper;
 import com.rest_api.fs14backend.mappers.UserMapper;
+import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.model.UserDTO;
+import com.rest_api.fs14backend.repositories.BookRepository;
 import com.rest_api.fs14backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -20,8 +26,33 @@ public class UserServiceJPA implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
+    private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
+
+
+    public void borrowBook(UUID userId, UUID bookId) throws BookNotFoundException {
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
+
+        if(book.getQuantity() <= 0){
+            throw new BookNotFoundException("the book is not available");
+        }
+        book.setQuantity(book.getQuantity()-1);
+        book.setBorrower(user);
+        bookRepository.save(book);
+
+        user.getBooks().add(book);
+        userRepository.save(user);
+
+        BookDTO bookDTO = bookMapper.bookToBookDto(book);
+        bookDTO.setBorrower(userMapper.userToUserDto(user));
+
+        bookRepository.save(bookMapper.bookDtoToBook(bookDTO));
+    }
     @Override
     public List<UserDTO> listUsers() {
+
         return userRepository.findAll()
                 .stream()
                 .map(userMapper::userToUserDto)
@@ -30,6 +61,10 @@ public class UserServiceJPA implements UserService {
 
     @Override
     public Optional<UserDTO> getUserById(UUID id) {
+
+        User user = userRepository.findById(id).orElseThrow();
+        System.out.println(user.getName());
+
 
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findById(id).orElse(null)));
     }

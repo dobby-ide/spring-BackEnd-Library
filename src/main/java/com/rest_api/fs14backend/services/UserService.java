@@ -18,4 +18,6 @@ public interface UserService {
     Boolean deleteById(UUID userId);
 
     void patchUserById(UUID userId, UserDTO user);
+
+    void borrowBook(UUID userId, UUID bookId);
 }

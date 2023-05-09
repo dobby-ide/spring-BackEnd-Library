@@ -1,6 +1,8 @@
 package com.rest_api.fs14backend.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rest_api.fs14backend.entities.Book;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,9 @@ public class UserDTO {
     private String name;
     private String email;
     private String password;
-    @JsonIgnoreProperties("authors")
+    @JsonIgnoreProperties("users")
     private Set<Book> books;
+
+
+
 }
