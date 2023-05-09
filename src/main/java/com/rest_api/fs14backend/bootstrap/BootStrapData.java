@@ -135,6 +135,9 @@ public class BootStrapData implements CommandLineRunner {
                     .email("fabietto_marterilogoa@email.com")
                     .password("11226634")
                     .build();
+
+
+            userRepository.save(user3);
             user3.addBook(book1);
             userRepository.save(user3);
 

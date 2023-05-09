@@ -63,6 +63,8 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 
+
+
     public void addAuthor(Author author) {
         if (this.authors == null) {
             this.authors = new HashSet<>();
@@ -76,10 +78,12 @@ public class Book {
 
     public void setBorrower(User user) {
         if (user != null) {
+            if(this.users == null){
+                this.users = new HashSet<>();
             this.users.add(user);
             user.getBooks().add(this);
             this.quantity -= 1;
-        }
+        }}
     }
 }
 
