@@ -47,7 +47,7 @@ public class UserServiceJPA implements UserService {
         userRepository.save(user);
 
         BookDTO bookDTO = bookMapper.bookToBookDto(book);
-        bookDTO.setBorrower(userMapper.userToUserDto(user));
+//        bookDTO.setBorrower(userMapper.userToUserDto(user));
 
         bookRepository.save(bookMapper.bookDtoToBook(bookDTO));
     }

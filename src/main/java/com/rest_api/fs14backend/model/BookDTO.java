@@ -33,6 +33,4 @@ public class BookDTO {
     private Category category;
     private Set<Author> authors;
     private Set<User> users;
-    private UserDTO borrower;
-
 }
