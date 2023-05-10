@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,12 +53,26 @@ public class UserServiceJPA implements UserService {
         bookRepository.save(bookMapper.bookDtoToBook(bookDTO));
     }
     @Override
-    public List<UserDTO> listUsers() {
+    public List<UserDTO> listUsers(String userName) {
 
-        return userRepository.findAll()
+        List<User> userList;
+
+        if(StringUtils.hasText(userName)){
+            System.out.println("debug00000001");
+            userList = listUsersByName(userName);
+        } else {
+            userList = userRepository.findAll();
+        }
+
+        return userList
                 .stream()
                 .map(userMapper::userToUserDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<User> listUsersByName(String userName){
+
+        return userRepository.findAllByNameIsLikeIgnoreCase("%"+userName+"%");
     }
 
     @Override

@@ -79,7 +79,8 @@ public class BookServiceJPA implements BookService {
 
     @Override
     public Optional<BookDTO> updateBookById(UUID bookId, BookDTO book) {
-
+//DEV TO-DO: adds some variables that holds the status ot the book in body request:
+        //i.e. if(book.getAuthor) has already an author and so on so forth to check what has been sent
         AtomicReference<Optional<BookDTO>> ref = new AtomicReference<>();
 
         bookRepository.findById(bookId).ifPresentOrElse(foundBook ->{

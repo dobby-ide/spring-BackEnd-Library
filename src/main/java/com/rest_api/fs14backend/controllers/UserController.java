@@ -2,8 +2,6 @@ package com.rest_api.fs14backend.controllers;
 
 import com.rest_api.fs14backend.exceptions.NotFoundException;
 import com.rest_api.fs14backend.model.UserDTO;
-import com.rest_api.fs14backend.model.UserDTO;
-import com.rest_api.fs14backend.model.UserDTO;
 import com.rest_api.fs14backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,8 +32,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> listUsers(){
-        return userService.listUsers();
+    public List<UserDTO> listUsers(@RequestParam(required=false) String userName){
+        return userService.listUsers(userName);
     }
 
     @GetMapping("/{userId}")
