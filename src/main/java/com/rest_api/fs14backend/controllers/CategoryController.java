@@ -1,11 +1,8 @@
 package com.rest_api.fs14backend.controllers;
 
 import com.rest_api.fs14backend.exceptions.NotFoundException;
-import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.model.CategoryDTO;
 import com.rest_api.fs14backend.services.CategoryService;
-import com.rest_api.fs14backend.entities.Category;
-import com.rest_api.fs14backend.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,6 +21,7 @@ public class CategoryController {
 
     @GetMapping
     public List<CategoryDTO> listCategories(){
+
         return categoryService.listCategory();
     }
 

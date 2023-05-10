@@ -15,5 +15,6 @@ public interface BookRepository extends JpaRepository<Book, UUID> {
     @Query("SELECT b FROM Book b JOIN FETCH b.category")
     List<Book> findAllWithCategory();
 
+    List<Book> findByCategoryCategoryNameIsLikeIgnoreCase(String category);
 
 }

@@ -21,7 +21,10 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-
+    @GetMapping("/category/{categoryName}")
+    public List<BookDTO> listBookByCategory(@PathVariable String categoryName){
+        return bookService.findBookByCategory(categoryName);
+    }
 
     @GetMapping
     public List<BookDTO> listBooks(@RequestParam(required=false) String title){

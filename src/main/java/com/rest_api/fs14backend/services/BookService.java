@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface BookService {
 
+    List<BookDTO> findBookByCategory(String category);
+
     List<BookDTO> listBooksWithCategory();
 
     List<BookDTO> listBooks(String bookName);

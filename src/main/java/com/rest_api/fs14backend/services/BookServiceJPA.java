@@ -33,6 +33,13 @@ public class BookServiceJPA implements BookService {
     private final UserMapper userMapper;
 
 
+    @Override
+    public List<BookDTO> findBookByCategory(String category) {
+        return bookRepository.findByCategoryCategoryNameIsLikeIgnoreCase(category)
+                .stream()
+                .map(bookMapper::bookToBookDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<BookDTO> listBooksWithCategory() {

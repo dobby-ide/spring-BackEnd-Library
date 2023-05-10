@@ -2,7 +2,6 @@ package com.rest_api.fs14backend.services;
 
 import com.rest_api.fs14backend.mappers.CategoryMapper;
 import com.rest_api.fs14backend.model.CategoryDTO;
-import com.rest_api.fs14backend.model.CategoryDTO;
 import com.rest_api.fs14backend.repositories.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -23,6 +22,7 @@ public class CategoryServiceJPA implements CategoryService {
     private final CategoryMapper categoryMapper;
     @Override
     public List<CategoryDTO> listCategory() {
+
         return categoryRepository.findAll()
                 .stream()
                 .map(categoryMapper::categoryToCategoryDto)
