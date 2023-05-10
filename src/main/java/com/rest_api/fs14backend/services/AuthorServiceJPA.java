@@ -1,11 +1,13 @@
 package com.rest_api.fs14backend.services;
 
+import com.rest_api.fs14backend.entities.Author;
 import com.rest_api.fs14backend.mappers.AuthorMapper;
 import com.rest_api.fs14backend.model.AuthorDTO;
 import com.rest_api.fs14backend.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +22,24 @@ public class AuthorServiceJPA implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
-    @Override
-    public List<AuthorDTO> listAuthors() {
-        return authorRepository.findAll()
+    public List<AuthorDTO> listAuthors(String authorName) {
+
+        List<Author> authorList;
+        if(StringUtils.hasText(authorName)){
+            authorList = listAuthorByName(authorName);
+        } else {
+            authorList = authorRepository.findAll();
+        }
+
+        return authorList
                 .stream()
                 .map(authorMapper::authorToAuthorDto)
                 .collect(Collectors.toList());
+    }
+
+    private List<Author> listAuthorByName(String authorName) {
+
+        return authorRepository.findAllByAuthorNameIsLikeIgnoreCase("%"+authorName+"%");
     }
 
     @Override

@@ -20,8 +20,8 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping
-    public List<AuthorDTO> listAuthors(){
-        return authorService.listAuthors();
+    public List<AuthorDTO> listAuthors(@RequestParam(required = false) String authorName){
+        return authorService.listAuthors(authorName);
     }
 
     @GetMapping("/{authorId}")
