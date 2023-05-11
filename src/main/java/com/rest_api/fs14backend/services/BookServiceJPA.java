@@ -29,10 +29,6 @@ public class BookServiceJPA implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-
-
     @Override
     public List<BookDTO> findBookByCategory(String category) {
         return bookRepository.findByCategoryCategoryNameIsLikeIgnoreCase(category)

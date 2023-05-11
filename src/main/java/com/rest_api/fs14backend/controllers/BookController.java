@@ -1,7 +1,13 @@
 package com.rest_api.fs14backend.controllers;
 
+import com.rest_api.fs14backend.entities.Author;
+import com.rest_api.fs14backend.entities.Book;
 import com.rest_api.fs14backend.exceptions.NotFoundException;
+import com.rest_api.fs14backend.mappers.AuthorMapper;
+import com.rest_api.fs14backend.mappers.BookMapper;
+import com.rest_api.fs14backend.model.AuthorDTO;
 import com.rest_api.fs14backend.model.BookDTO;
+import com.rest_api.fs14backend.services.AuthorService;
 import com.rest_api.fs14backend.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +27,13 @@ import java.util.UUID;
 public class BookController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    private AuthorMapper authorMapper;
+    @Autowired
+    private BookMapper bookMapper;
+
+    @Autowired
+    private AuthorService authorService;
 
     @GetMapping("/category/{categoryName}")
     public List<BookDTO> listBookByCategory(@PathVariable String categoryName){
@@ -52,16 +66,33 @@ public class BookController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody BookDTO book){
-        BookDTO savedBook = bookService.saveNewBook(book);
+    public void handlePost(@RequestBody Book book){
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "api/v1/books/" + savedBook.getId().toString());
-
-        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
+//    @PostMapping
+//    public ResponseEntity handleBookPost(@RequestParam String title,
+//                                         @RequestParam String ISBN,
+//                                         @RequestParam UUID authorId,
+//                                         @RequestParam(required = false) String description,
+//                                         @RequestParam(required=false) Integer quantity){
+//        AuthorDTO authorDto = authorService.getAuthorById(authorId).orElseThrow();
+//        Book book = Book.builder()
+//                .title(title)
+//                .ISBN(ISBN)
+//                .description(description)
+//                .quantity(quantity != null ? quantity : 1)
+//                .build();
+//        Author author = authorMapper.authorDtoToAuthor(authorDto);
+//        book.addAuthor(author);
+//        BookDTO savedBook = bookService.saveNewBook(bookMapper.bookToBookDto(book));
+//
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Location", "api/v1/books/" + savedBook.getId().toString());
+//
+//        return new ResponseEntity(HttpStatus.CREATED);
+//    }
 
 
     @DeleteMapping("/{id}")

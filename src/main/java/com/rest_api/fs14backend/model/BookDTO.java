@@ -12,15 +12,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+
 @Builder
+@Data
+@AllArgsConstructor
 public class BookDTO {
     private UUID id;
     private String ISBN;
@@ -33,4 +34,6 @@ public class BookDTO {
     private Category category;
     private Set<Author> authors;
     private Set<User> users;
+    public BookDTO(){};
 }
+
