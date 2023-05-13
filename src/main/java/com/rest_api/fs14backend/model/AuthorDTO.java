@@ -15,5 +15,5 @@ public class AuthorDTO {
     private UUID id;
     private String authorName;
     private LocalDate dateOfBirth;
-    private Set<Book> books;
+
 }

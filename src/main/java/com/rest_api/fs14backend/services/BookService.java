@@ -1,5 +1,6 @@
 package com.rest_api.fs14backend.services;
 
+import com.rest_api.fs14backend.entities.Book;
 import com.rest_api.fs14backend.model.BookDTO;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface BookService {
     List<BookDTO> listBooks(String bookName);
 
     Optional<BookDTO> getBookById(UUID id);
+
+    BookDTO saveNewBook(Book book);
 
     BookDTO saveNewBook(BookDTO book);
 

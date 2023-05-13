@@ -50,7 +50,7 @@ public class CategoryController {
 
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody CategoryDTO category) {
+    public ResponseEntity handlePost(@ModelAttribute CategoryDTO category) {
         CategoryDTO savedCategory = categoryService.saveNewCategory(category);
 
         HttpHeaders headers = new HttpHeaders();

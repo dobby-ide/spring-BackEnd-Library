@@ -2,6 +2,7 @@ package com.rest_api.fs14backend.controllers;
 
 import com.rest_api.fs14backend.entities.Author;
 import com.rest_api.fs14backend.entities.Book;
+import com.rest_api.fs14backend.entities.Category;
 import com.rest_api.fs14backend.exceptions.NotFoundException;
 import com.rest_api.fs14backend.mappers.AuthorMapper;
 import com.rest_api.fs14backend.mappers.BookMapper;
@@ -10,12 +11,14 @@ import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.services.AuthorService;
 import com.rest_api.fs14backend.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +28,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/books")
 public class BookController {
+    @Autowired(required = false)
+    private Book book;
     @Autowired
     private BookService bookService;
     @Autowired
@@ -66,9 +71,16 @@ public class BookController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping
-    public void handlePost(@RequestBody Book book){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity handlePost(@ModelAttribute("book") Book book){
 
+        BookDTO savedBook = bookService.saveNewBook(book);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "api/v1/books/" + savedBook.getId().toString());
+
+        return new ResponseEntity(savedBook,headers,HttpStatus.CREATED);
     }
 //    @PostMapping
 //    public ResponseEntity handleBookPost(@RequestParam String title,
@@ -95,7 +107,7 @@ public class BookController {
 //    }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{bookId}")
     public ResponseEntity deleteById(@PathVariable UUID bookId) {
         if(!bookService.deleteById(bookId)){
             throw new NotFoundException("book not found");

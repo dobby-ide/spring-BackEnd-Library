@@ -9,6 +9,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,18 +34,18 @@ public class Book {
             length = 36,
             columnDefinition = "varchar(36)",
             updatable = false,
-            nullable = false
+            nullable = false,
+            name="id"
     )
     private UUID id;
     private String ISBN;
-    @NotNull
-    @NotBlank
     @Size(max = 50)
     @Column(length = 50)
+    @JsonProperty("title")
     private String title;
     private String description;
     private Integer quantity;
-    private LocalDate publishedDate;
+//    private LocalDate publishedDate;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="category_id", referencedColumnName = "id")
     @JsonBackReference
@@ -53,6 +55,7 @@ public class Book {
     @JoinTable(name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @Builder.Default
     private Set<Author> authors = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -60,6 +63,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @JsonManagedReference
+    @Builder.Default
     private Set<User> users = new HashSet<>();
 
 

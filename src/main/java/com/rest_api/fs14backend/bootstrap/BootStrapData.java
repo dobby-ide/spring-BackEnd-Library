@@ -105,7 +105,6 @@ public class BootStrapData implements CommandLineRunner {
                 .title("Java for Dummies")
                 .category(cat2)
                 .description("easy to understand or not for beginner java programmers")
-                .publishedDate(LocalDate.of(2015,5,5))
                 .quantity(3)
                 .build();
 
@@ -113,7 +112,6 @@ public class BootStrapData implements CommandLineRunner {
                 .title("Javascript for Dummies")
                 .category(cat2)
                 .description("easy to understand or not for beginner javascript programmers")
-                .publishedDate(LocalDate.of(2012,12,3))
                 .quantity(6)
                 .build();
 

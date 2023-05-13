@@ -1,20 +1,14 @@
 package com.rest_api.fs14backend.services;
 
 import com.rest_api.fs14backend.entities.Book;
-import com.rest_api.fs14backend.entities.User;
-import com.rest_api.fs14backend.exceptions.BookNotFoundException;
 import com.rest_api.fs14backend.mappers.BookMapper;
-import com.rest_api.fs14backend.mappers.UserMapper;
 import com.rest_api.fs14backend.model.BookDTO;
 import com.rest_api.fs14backend.repositories.BookRepository;
-import com.rest_api.fs14backend.repositories.UserRepository;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -23,8 +17,9 @@ import java.util.stream.Collectors;
 
 @Service
 @Primary
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BookServiceJPA implements BookService {
+
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
@@ -74,10 +69,21 @@ public class BookServiceJPA implements BookService {
         return Optional.ofNullable(bookMapper.bookToBookDto(bookRepository.findById(id).orElse(null)));
     }
 
+
+
+    @Override
+    public BookDTO saveNewBook(Book book) {
+        System.out.println("YOU ARE HERE---------------------------------------------");
+        System.out.println(book.getId());
+        System.out.println(book.getTitle());
+
+        return bookMapper.bookToBookDto(bookRepository.save((book)));
+    }
+
     @Override
     public BookDTO saveNewBook(BookDTO book) {
-
-        return bookMapper.bookToBookDto(bookRepository.save(bookMapper.bookDtoToBook(book)));
+        Book savedBook = bookMapper.bookDtoToBook(book);
+        return bookMapper.bookToBookDto(bookRepository.save((savedBook)));
     }
 
     @Override
@@ -89,7 +95,6 @@ public class BookServiceJPA implements BookService {
         bookRepository.findById(bookId).ifPresentOrElse(foundBook ->{
             foundBook.setTitle(book.getTitle());
             foundBook.setDescription(book.getDescription());
-            foundBook.setPublishedDate(book.getPublishedDate());
             ref.set(Optional.of(bookMapper
                     .bookToBookDto(bookRepository.save(foundBook))));
 

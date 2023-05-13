@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -21,19 +22,18 @@ import java.util.UUID;
 
 @Builder
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 public class BookDTO {
     private UUID id;
     private String ISBN;
-    @NotNull
-    @NotBlank
     private String title;
     private String description;
     private Integer quantity;
-    private LocalDate publishedDate;
     private Category category;
     private Set<Author> authors;
-    private Set<User> users;
+//    private Set<User> users;
     public BookDTO(){};
 }
 
