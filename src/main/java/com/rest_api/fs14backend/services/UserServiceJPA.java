@@ -52,6 +52,23 @@ public class UserServiceJPA implements UserService {
 
         bookRepository.save(bookMapper.bookDtoToBook(bookDTO));
     }
+
+    @Override
+    public void returnBook(UUID userId, UUID bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
+        System.out.println("----------------------------------------");
+        System.out.println(user + " ---  " + book);
+        book.setQuantity(book.getQuantity() + 1);
+        book.deleteBorrower(user);
+        BookDTO bookDTO = bookMapper.bookToBookDto(book);
+
+        user.deleteBook(book);
+        user.getBooks().remove(book);
+        userRepository.save(user);
+        bookRepository.save(bookMapper.bookDtoToBook(bookDTO));
+    }
+
     @Override
     public List<UserDTO> listUsers(String userName) {
 

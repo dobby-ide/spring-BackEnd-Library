@@ -20,4 +20,6 @@ public interface UserService {
     void patchUserById(UUID userId, UserDTO user);
 
     void borrowBook(UUID userId, UUID bookId);
+
+    void returnBook(UUID userId, UUID bookId);
 }

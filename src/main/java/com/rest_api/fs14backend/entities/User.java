@@ -53,4 +53,9 @@ public class User {
 
         };
     }
+
+    public void deleteBook(Book book) {
+        this.books.remove(book);
+        book.deleteBorrower(this);
+    }
 }

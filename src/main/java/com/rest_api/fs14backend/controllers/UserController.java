@@ -18,7 +18,16 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    @PostMapping("/{userId}/return-book/{bookId}")
+    public ResponseEntity returnBook(@PathVariable("userId") UUID userId,@PathVariable ("bookId") UUID bookId){
+        try{
+            userService.returnBook(userId, bookId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     @PostMapping("/{userId}/borrow-book/{bookId}")
     public ResponseEntity borrowBook( @PathVariable("userId") UUID userId,@PathVariable("bookId") UUID bookId) {
         try {

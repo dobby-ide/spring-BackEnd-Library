@@ -29,7 +29,7 @@ public class AuthorController {
         return authorService.getAuthorById(authorId).orElseThrow();
     }
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody AuthorDTO author){
+    public ResponseEntity handlePost(@ModelAttribute AuthorDTO author){
        AuthorDTO savedAuthor = authorService.saveNewAuthor(author);
 
         HttpHeaders headers = new HttpHeaders();
@@ -39,10 +39,11 @@ public class AuthorController {
     }
 
     @PutMapping("/{authorId}")
-    public ResponseEntity updateById(@PathVariable("authorId") UUID authorId, @RequestBody AuthorDTO author){
+    public ResponseEntity updateById(@PathVariable("authorId") UUID authorId, @ModelAttribute AuthorDTO author){
         if(authorService.updateAuthorById(authorId, author).isEmpty()){
             throw new NotFoundException("Author not found");
         }
+        authorService.updateAuthorById(authorId,author);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

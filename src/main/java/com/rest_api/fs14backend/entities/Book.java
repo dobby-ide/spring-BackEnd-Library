@@ -89,6 +89,12 @@ public class Book {
             this.quantity -= 1;
         }
     }
+
+    public void deleteBorrower(User user) {
+
+        this.users.remove(user);
+        user.getBooks().remove(user);
+    }
 }
 
 

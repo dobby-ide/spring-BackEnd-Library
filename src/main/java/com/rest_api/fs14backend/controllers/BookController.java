@@ -63,10 +63,11 @@ public class BookController {
     }
 
     @PutMapping("/{bookId}")
-    public ResponseEntity updateById(@PathVariable("bookId") UUID bookId, @RequestBody BookDTO book){
+    public ResponseEntity updateById(@PathVariable("bookId") UUID bookId, @ModelAttribute BookDTO book){
         if(bookService.updateBookById(bookId, book).isEmpty()){
             throw new NotFoundException("the book with id " + bookId + "could not be found, so update was not possible");
         }
+        bookService.updateBookById(bookId,book);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

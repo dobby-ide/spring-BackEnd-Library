@@ -33,7 +33,7 @@ public class BookDTO {
     private Integer quantity;
     private Category category;
     private Set<Author> authors;
-//    private Set<User> users;
+    private Set<User> users;
     public BookDTO(){};
 }
 
