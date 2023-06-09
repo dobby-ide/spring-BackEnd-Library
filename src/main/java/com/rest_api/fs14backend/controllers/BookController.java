@@ -47,7 +47,7 @@ public class BookController {
     @GetMapping
     @CrossOrigin(origins = "*")
     public List<BookDTO> listBooks(@RequestParam(required=false) String title){
-
+        System.out.println("inside all books list");
         return bookService.listBooks(title);
     }
 
@@ -72,10 +72,10 @@ public class BookController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/")
     public ResponseEntity handlePost(@ModelAttribute("book") Book book){
-
+        System.out.println("inside handlePost");
+        System.out.println(book.getTitle());
         BookDTO savedBook = bookService.saveNewBook(book);
 
         HttpHeaders headers = new HttpHeaders();

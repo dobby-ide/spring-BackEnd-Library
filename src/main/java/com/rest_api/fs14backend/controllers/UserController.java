@@ -41,6 +41,7 @@ public class UserController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "*")
     public List<UserDTO> listUsers(@RequestParam(required=false) String userName){
         return userService.listUsers(userName);
     }
