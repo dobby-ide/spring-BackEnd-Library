@@ -86,7 +86,7 @@ public class Book {
             }
             this.users.add(user);
             user.getBooks().add(this);
-            this.quantity -= 1;
+
         }
     }
 
@@ -94,6 +94,7 @@ public class Book {
 
         this.users.remove(user);
         user.getBooks().remove(user);
+
     }
 }
 

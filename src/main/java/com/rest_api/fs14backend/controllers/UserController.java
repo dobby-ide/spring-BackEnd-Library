@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@Validated @RequestBody UserDTO user){
+    public ResponseEntity handlePost(@Validated @ModelAttribute UserDTO user){
         UserDTO savedUser = userService.saveNewUser(user);
 
         HttpHeaders headers = new HttpHeaders();

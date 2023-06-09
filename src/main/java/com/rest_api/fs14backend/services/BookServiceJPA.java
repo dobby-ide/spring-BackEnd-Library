@@ -93,7 +93,14 @@ public class BookServiceJPA implements BookService {
         AtomicReference<Optional<BookDTO>> ref = new AtomicReference<>();
 
         bookRepository.findById(bookId).ifPresentOrElse(foundBook ->{
-            foundBook.setTitle(book.getTitle());
+            if(foundBook.getTitle()!=null){
+                foundBook.setTitle(book.getTitle());
+            }
+            foundBook.setQuantity(book.getQuantity());
+            foundBook.setAuthors(book.getAuthors());
+            foundBook.setISBN(book.getISBN());
+            foundBook.setQuantity(1);
+
             foundBook.setDescription(book.getDescription());
             ref.set(Optional.of(bookMapper
                     .bookToBookDto(bookRepository.save(foundBook))));

@@ -7,8 +7,10 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,14 +33,18 @@ public class User {
             nullable = false
     )
     private UUID id;
-    private String name;
+    private String username;
     private String email;
     private String password;
+    private String role;
 
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Book> books = new HashSet<>();
+
+    public User(String username, String password, List<GrantedAuthority> authorities) {
+    }
 
     public void addBook(Book book){
         if(book!=null) {

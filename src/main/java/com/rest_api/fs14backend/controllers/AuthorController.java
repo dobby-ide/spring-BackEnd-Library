@@ -48,9 +48,9 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable UUID authorId){
-        if(authorService.deleteById(authorId)){
-            throw new NotFoundException("book not found");
+    public ResponseEntity deleteById(@PathVariable UUID id){
+        if(!authorService.deleteById(id)){
+            throw new NotFoundException("author not found");
         }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

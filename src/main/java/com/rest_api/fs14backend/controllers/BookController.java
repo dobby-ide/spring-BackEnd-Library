@@ -17,8 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +45,7 @@ public class BookController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "*")
     public List<BookDTO> listBooks(@RequestParam(required=false) String title){
 
         return bookService.listBooks(title);

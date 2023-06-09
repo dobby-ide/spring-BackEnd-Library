@@ -63,6 +63,7 @@ public class UserServiceJPA implements UserService {
         book.deleteBorrower(user);
         BookDTO bookDTO = bookMapper.bookToBookDto(book);
 
+
         user.deleteBook(book);
         user.getBooks().remove(book);
         userRepository.save(user);
@@ -89,14 +90,14 @@ public class UserServiceJPA implements UserService {
 
     public List<User> listUsersByName(String userName){
 
-        return userRepository.findAllByNameIsLikeIgnoreCase("%"+userName+"%");
+        return userRepository.findAllByUsernameIsLikeIgnoreCase("%"+userName+"%");
     }
 
     @Override
     public Optional<UserDTO> getUserById(UUID id) {
 
         User user = userRepository.findById(id).orElseThrow();
-        System.out.println(user.getName());
+        System.out.println(user.getUsername());
 
 
         return Optional.ofNullable(userMapper.userToUserDto(userRepository.findById(id).orElse(null)));
@@ -112,7 +113,7 @@ public class UserServiceJPA implements UserService {
     public Optional<UserDTO> updateUserById(UUID userId, UserDTO user) {
         AtomicReference<Optional<UserDTO>> ref = new AtomicReference<>();
         userRepository.findById(userId).ifPresentOrElse(foundUser -> {
-            foundUser.setName(user.getName());
+            foundUser.setUsername(user.getName());
             foundUser.setEmail(user.getEmail());
             foundUser.setPassword(user.getPassword());
             ref.set(Optional.of(userMapper.userToUserDto(userRepository.save(foundUser))));

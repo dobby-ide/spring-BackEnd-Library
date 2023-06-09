@@ -87,13 +87,13 @@ public class BootStrapData implements CommandLineRunner {
         if(bookRepository.count()==0){
 
             User user1 = User.builder()
-                    .name("Mark Zucchina")
+                    .username("Mark Zucchina")
                     .email("mark_zucchina@email.com")
                     .password("112233")
                     .build();
 
             User user2 = User.builder()
-                    .name("Maria Callas")
+                    .username("Maria Callas")
                     .email("maria_callina@email.com")
                     .password("112234")
                     .build();

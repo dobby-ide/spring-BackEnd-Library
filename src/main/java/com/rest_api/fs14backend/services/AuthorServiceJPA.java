@@ -71,9 +71,9 @@ public class AuthorServiceJPA implements AuthorService {
     }
 
     @Override
-    public Boolean deleteById(UUID authorId) {
-        if(authorRepository.existsById(authorId)){
-            authorRepository.deleteById(authorId);
+    public Boolean deleteById(UUID id) {
+        if(authorRepository.existsById(id)){
+            authorRepository.deleteById(id);
             return true;
         }
         return false;

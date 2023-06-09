@@ -8,5 +8,7 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
-    List<User> findAllByNameIsLikeIgnoreCase(String userName);
+    List<User> findAllByUsernameIsLikeIgnoreCase(String userName);
+
+    List<User> findByEmail(String email);
 }
