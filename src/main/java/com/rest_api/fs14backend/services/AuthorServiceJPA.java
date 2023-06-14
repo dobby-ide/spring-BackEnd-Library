@@ -1,6 +1,7 @@
 package com.rest_api.fs14backend.services;
 
 import com.rest_api.fs14backend.entities.Author;
+import com.rest_api.fs14backend.entities.Book;
 import com.rest_api.fs14backend.mappers.AuthorMapper;
 import com.rest_api.fs14backend.model.AuthorDTO;
 import com.rest_api.fs14backend.repositories.AuthorRepository;
@@ -72,11 +73,31 @@ public class AuthorServiceJPA implements AuthorService {
 
     @Override
     public Boolean deleteById(UUID id) {
-        if(authorRepository.existsById(id)){
+        Optional<Author> optionalAuthor = authorRepository.findById(id);
+        if (optionalAuthor.isPresent()) {
+            Author author = optionalAuthor.get();
+
+
+            for (Book book : author.getBooks()) {
+                book.getAuthors().remove(author);
+            }
+            // Remove the association between the author and books
+            author.getBooks().clear();
+
+            // Save the modified author entity to update the associations
+            authorRepository.save(author);
+
+            // Delete the author entity
             authorRepository.deleteById(id);
+
             return true;
         }
         return false;
+//        if(authorRepository.existsById(id)){
+//            authorRepository.deleteById(id);
+//            return true;
+//        }
+//        return false;
     }
 
     @Override

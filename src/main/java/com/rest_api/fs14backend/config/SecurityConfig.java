@@ -35,7 +35,7 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Collections.singletonList("http://127.0.0.1:5173"));
+                        config.setAllowedOrigins(Collections.singletonList("http://127.0.0.1:5173"));//"http://my-very-first-bucke.s3-website-us-east-1.amazonaws.com"
                         config.setAllowedMethods(Collections.singletonList("*"));
                         config.setAllowCredentials(true);
                         config.setAllowedHeaders(Collections.singletonList("*"));
@@ -46,9 +46,9 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/authors/**","/api/v1/users/**").authenticated()
+
                 .requestMatchers("/userLogin","/register").permitAll()
-                .requestMatchers("api/v1/books").permitAll().anyRequest().authenticated()
+                .requestMatchers("/api/v1/users/**","/api/v1/users","api/v1/books","api/v1/authors","api/v1/books/**","api/v1/authors/**").permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin().and()
                 .httpBasic()
