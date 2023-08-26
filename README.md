@@ -1,48 +1,21 @@
-# Backend Assignment (Team work)
+# what it does:
 
-`Choose one of the assignments based on what you've been working on so far`
-
-<br />
-
-### Option 1:
-
-Implement REST APIs for the library management system
-
-### Option 2:
-
-Implement REST APIs for the e-commerce site
-
-## What should you be doing
-
-implement a basic endpoints as a team and gradually make it more complex, like data modeling.
-
-it should be a functional backend with real database persistence
-
-Database to use: SQL over NoSQL. so either PostgreSQL or MySQL
+uses all the power of Spring to create a secure API for a Library system
 
 <br />
 
-### What are the things should be done for this backend assignment
+### Secure:
 
-1. build basic tables schema
-2. basic routes CRUD requests
-3. build references between table
-4. build/refactor routes to fulfill the referencing (create book with an author/s id)
-5. handling errors and request validation
-6. Authentication/authoraization
+because uses Spring security for registered users (from a database)
 
-<br />
+### technologies:
 
-`Resources/Topics that could help you:`
+Lombok, mapstruct, spring-web, spring-security
 
-1. [Learn DTO pattern](https://www.youtube.com/watch?v=THv-TI1ZNMk&t=1526s)
-2. [How to connect PostgreSQL and Docker to Spring Boot application](https://www.youtube.com/watch?v=A8qZUF-GcKo)
+## What it does:
+
+implements endpoints, data modeling with real database persistence
+
+uses SQL to query from and sends results to frontend. If user is not authenticated via a session-token some paths are not available, handles errors.
 
 <br />
-
-`How to proceed:`
-
-- Group leader would fork this repo
-- Group member would clone the origin (the leader's forked repo)
-- all of you work from that origin
-- leader open a PR as soon as you have something to show and wants a review
