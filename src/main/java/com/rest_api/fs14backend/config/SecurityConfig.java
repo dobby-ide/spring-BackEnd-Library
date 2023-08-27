@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
 
                 .requestMatchers("/userLogin","/register").permitAll()
-                .requestMatchers("/api/v1/users/**","/api/v1/users","api/v1/books","api/v1/authors","api/v1/books/**","api/v1/authors/**").permitAll().anyRequest().authenticated()
+                .requestMatchers("/api/v1/users/**","/api/v1/users","api/v1/books","api/v1/authors","api/v1/books/**","api/v1/authors/**").authenticated()
                 .and()
                 .formLogin().and()
                 .httpBasic()
