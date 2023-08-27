@@ -35,7 +35,7 @@ public class SecurityConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration config = new CorsConfiguration();
-                        config.setAllowedOrigins(Collections.singletonList("http://127.0.0.1:5173"));//"http://my-very-first-bucke.s3-website-us-east-1.amazonaws.com"
+                        config.setAllowedOrigins(Collections.singletonList("https://thelibrary-9jq2.onrender.com"));//"http://my-very-first-bucke.s3-website-us-east-1.amazonaws.com"
                         config.setAllowedMethods(Collections.singletonList("*"));
                         config.setAllowCredentials(true);
                         config.setAllowedHeaders(Collections.singletonList("*"));
