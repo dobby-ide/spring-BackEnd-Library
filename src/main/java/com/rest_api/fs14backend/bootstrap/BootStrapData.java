@@ -29,8 +29,10 @@ public class BootStrapData implements CommandLineRunner {
     private final UserRepository userRepository;
     @Override
     public void run(String... args) throws Exception {
+        System.out.println("inside run of BootStrapData");
         if(bookRepository.count()==0){
             try{
+                System.out.println("inside2 run of BootStrapData");
                 loadBookData();
             }catch(DataIntegrityViolationException e){
                 System.out.println("error " + e.getMessage());

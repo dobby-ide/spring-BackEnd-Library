@@ -29,18 +29,24 @@ public class LoginController {
         User savedUser = null;
         System.out.println(user.getPassword());
         ResponseEntity response = null;
-        try{
-            savedUser = userRepository.save(user);
-            if(savedUser.getId() != null){
-                response=ResponseEntity
-                        .status(HttpStatus.CREATED)
-                        .body("Given user details are successfully registered");
+        if(user.getPassword() != null) {
+            try {
+                System.out.println(user.getPassword());
+                savedUser = userRepository.save(user);
+
+                    response = ResponseEntity
+                            .status(HttpStatus.CREATED)
+                            .body("Given user details are successfully registered");
+
             }
 
-        } catch(Exception ex){
+         catch(Exception ex){
             response = ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Exception occurred due to " + ex.getMessage());
+        } } else{
+            response = ResponseEntity
+                    .status(HttpStatus.NOT_ACCEPTABLE).body("given user details are not acceptable");
         }
         return response;
     }
@@ -49,6 +55,7 @@ public class LoginController {
     @PostMapping("/userLogin")
     @ResponseBody
     public User getUserDetailsAfterLogin(Authentication authentication){
+        System.out.println(authentication);
         System.out.println("inside authentication/login phase path:/userLogin");
         List<User> users = userRepository.findByEmail(authentication.getName());
         if(users.size() > 0){

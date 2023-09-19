@@ -30,6 +30,6 @@ public class LibraryUserDetails implements UserDetailsService {
             authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(user.get(0).getRole()));
         }
-        return new org.springframework.security.core.userdetails.User(username,password,authorities);
+        return new org.springframework.security.core.userdetails.User(userName,password,authorities);
     }
 }
